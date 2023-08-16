@@ -1,6 +1,6 @@
 {
   "name": "remove-csv-duplicates",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple and versatile Node.js script to remove duplicate entries from a CSV file based on a specific column. It includes a progress bar to visually track the processing and utilizes the command line for easy input.",
   "main": "remove-csv-duplicates.js",
   "scripts": {
