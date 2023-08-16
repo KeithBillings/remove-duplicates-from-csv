@@ -22,7 +22,7 @@ A simple and versatile Node.js script to remove duplicate entries from a CSV fil
 3. Run the following command to install the necessary dependencies:
 
 ```bash
-npm install csv-parser csv-writer progress
+npm install
 ```
 
 ## Usage
