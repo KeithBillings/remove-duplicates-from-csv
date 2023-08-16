@@ -1,0 +1,15 @@
+{
+  "name": "remove-duplicates-in-csv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "remove-duplicates-csv.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "csv-writer": "^1.6.0"
+  }
+}
