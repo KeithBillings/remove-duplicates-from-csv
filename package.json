@@ -13,5 +13,8 @@
     "csv-parser": "^3.0.0",
     "csv-writer": "^1.6.0",
     "progress": "^2.0.3"
+  },
+  "bin": {
+    "remove-csv-duplicates": "./remove-csv-duplicates.js"
   }
 }
