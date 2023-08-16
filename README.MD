@@ -43,7 +43,11 @@ node remove-duplicates-csv.js
 
 The script will then prompt you for the input file name (must be a .csv file), output file name, and the column to parse for removing duplicates.
 
-The input file name can be a relative or absolute path. If the file is in the same directory as the script, you can simply enter the file name. Otherwise, you must enter the relative or absolute path to the file.
+The input file name can be a relative or absolute path. If the file is in the same directory as the script, you can simply enter the file name. Otherwise, you must enter the relative or absolute path to the file. For example, if the file is in a subdirectory called `data`, you can enter `data/file.csv` or `./data/file.csv`. If the file is in a parent directory, you can enter `../file.csv`.
+
+The output file name can be a relative or absolute path. If the file is in the same directory as the script, you can simply enter the file name. Otherwise, you must enter the relative or absolute path to the file. For example, if you want to save the file in a subdirectory called `output`, you can enter `output/file.csv` or `./output/file.csv`. If you want to save the file in a parent directory, you can enter `../file.csv`.
+
+The column to parse for removing duplicates must be a valid column name in the CSV file. The script will display the column names in the CSV file and prompt you to enter the column name. The column name is case-sensitive.
 
 ## Contributing
 
