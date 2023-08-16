@@ -2,6 +2,18 @@
 
 A simple and versatile Node.js script to remove duplicate entries from a CSV file based on a specific column. It includes a progress bar to visually track the processing and utilizes the command line for easy input.
 
+## Table of Contents
+
+- [CSV Duplicate Remover](#csv-duplicate-remover)
+	- [Table of Contents](#table-of-contents)
+	- [Features](#features)
+	- [Requirements](#requirements)
+	- [Installation](#installation)
+	- [Dependencies](#dependencies)
+	- [Usage](#usage)
+	- [Contributing](#contributing)
+	- [License](#license)
+
 ## Features
 
 - **CSV Input**: Accepts a CSV file with any number of columns.
@@ -17,18 +29,23 @@ A simple and versatile Node.js script to remove duplicate entries from a CSV fil
 
 ## Installation
 
-1. Clone the repository or download the script.
-2. Navigate to the directory containing the script.
-3. Run the following command to install the necessary dependencies:
+1. Run the following command in your project to install the necessary dependencies:
 
 ```bash
-npm install
+npm install remove-csv-duplicates
 ```
 
 This will install all the dependencies declared in the `package.json` file.
 
+2. In your project's `package.json` file, add the following line to the `scripts` section:
+
+```json
+"remove-duplicates": "node ./node_modules/remove-csv-duplicates/remove-csv-duplicates.js"
+```
+
 ## Dependencies
 
+- [remove-csv-duplicates](https://www.npmjs.com/package/remove-csv-duplicates)
 - [csv-parser](https://www.npmjs.com/package/csv-parser)
 - [csv-writer](https://www.npmjs.com/package/csv-writer)
 - [progress](https://www.npmjs.com/package/progress)
@@ -38,7 +55,7 @@ This will install all the dependencies declared in the `package.json` file.
 To run the script, simply execute the following command in the directory containing the script:
 
 ```bash
-npm start
+npm run remove-duplicates   
 ```
 
 The script will then prompt you for the input file name (must be a .csv file), output file name, and the column to parse for removing duplicates.
