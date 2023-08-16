@@ -25,6 +25,14 @@ A simple and versatile Node.js script to remove duplicate entries from a CSV fil
 npm install
 ```
 
+This will install all the dependencies declared in the `package.json` file.
+
+## Dependencies
+
+- [csv-parser](https://www.npmjs.com/package/csv-parser)
+- [csv-writer](https://www.npmjs.com/package/csv-writer)
+- [progress](https://www.npmjs.com/package/progress)
+
 ## Usage
 
 To run the script, simply execute the following command in the directory containing the script:
