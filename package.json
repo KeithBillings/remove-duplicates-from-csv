@@ -1,10 +1,11 @@
 {
-  "name": "remove-duplicates-in-csv",
+  "name": "remove-csv-duplicates",
   "version": "1.0.0",
   "description": "",
-  "main": "remove-duplicates-csv.js",
+  "main": "remove-csv-duplicates.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node remove-csv-duplicates.js"
   },
   "author": "",
   "license": "ISC",

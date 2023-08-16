@@ -38,7 +38,7 @@ This will install all the dependencies declared in the `package.json` file.
 To run the script, simply execute the following command in the directory containing the script:
 
 ```bash
-node remove-duplicates-csv.js
+node remove-csv-duplicates.js
 ```
 
 The script will then prompt you for the input file name (must be a .csv file), output file name, and the column to parse for removing duplicates.
