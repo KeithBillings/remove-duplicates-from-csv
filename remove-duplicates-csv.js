@@ -8,8 +8,21 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-rl.question("Enter the input file name: ", (inputFile) => {
-  rl.question("Enter the output file name: ", (outputFile) => {
+const askForInputFile = (callback) => {
+  rl.question("Enter the input file name (must be a .csv file): ", (inputFile) => {
+    if (inputFile.endsWith(".csv")) {
+      callback(inputFile);
+    } else {
+      console.log("Please enter a valid CSV file.");
+      askForInputFile(callback);
+    }
+  });
+};
+
+askForInputFile((inputFile) => {
+  rl.question("Enter the output file name: ", (outputFileName) => {
+    const outputFile = outputFileName.endsWith(".csv") ? outputFileName : outputFileName + ".csv";
+
     rl.question("Enter the column to parse (remove duplicates): ", (column) => {
       const records = [];
 
@@ -26,9 +39,10 @@ rl.question("Enter the input file name: ", (inputFile) => {
             header: Object.keys(records[0]).map((key) => ({ id: key, title: key })),
           });
 
-          csvWriter.writeRecords(records).then(() => console.log("CSV file written without duplicates."));
-
-          rl.close();
+          csvWriter.writeRecords(records).then(() => {
+            console.log("CSV file written without duplicates!");
+            rl.close();
+          });
         });
     });
   });
