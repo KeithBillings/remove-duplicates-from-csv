@@ -1,20 +1,42 @@
 {
   "name": "remove-csv-duplicates",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A simple and versatile Node.js script to remove duplicate entries from a CSV file based on a specific column. It includes a progress bar to visually track the processing and utilizes the command line for easy input.",
-  "main": "remove-csv-duplicates.js",
+  "keywords": [
+    "csv",
+    "duplicates",
+    "dedupe",
+    "deduplicate",
+    "cli"
+  ],
+  "homepage": "https://github.com/KeithBillings/remove-duplicates-from-csv#readme",
+  "bugs": {
+    "url": "https://github.com/KeithBillings/remove-duplicates-from-csv/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KeithBillings/remove-duplicates-from-csv.git"
+  },
+  "license": "MIT",
+  "author": "Keith Billings",
+  "main": "lib/remove-duplicates.js",
+  "bin": {
+    "remove-csv-duplicates": "remove-csv-duplicates.js"
+  },
+  "files": [
+    "remove-csv-duplicates.js",
+    "lib/"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test",
     "start": "node remove-csv-duplicates.js"
   },
-  "author": "Keith Billings",
-  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
-    "csv-parser": "^3.0.0",
+    "csv-parser": "^3.2.1",
     "csv-writer": "^1.6.0",
     "progress": "^2.0.3"
-  },
-  "bin": {
-    "remove-csv-duplicates": "./remove-csv-duplicates.js"
   }
 }
