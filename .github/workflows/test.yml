@@ -1,0 +1,35 @@
+# Runs the tests on every push and pull request, on each Node version 1.x supports.
+# The test runner (node:test) needs Node 18+, so each job installs the old Node
+# being tested, then a modern Node to run the tests, and points TEST_NODE at the
+# old one. The CLI tests then run the tool itself on the old Node.
+name: Test (1.x)
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # keep testing the other versions if one fails
+      matrix:
+        node: [10, 12, 14, 16, 18, 20, 22, 24, 26]
+    name: Node ${{ matrix.node }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install Node ${{ matrix.node }} (the version under test)
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Remember where it is
+        run: echo "TEST_NODE=$(which node)" >> "$GITHUB_ENV"
+      - name: Install a modern Node to run the test runner
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Smoke test on Node ${{ matrix.node }}
+        run: $TEST_NODE remove-csv-duplicates.js --version
