@@ -21,7 +21,7 @@
   "author": "Keith Billings",
   "main": "lib/remove-duplicates.js",
   "bin": {
-    "remove-csv-duplicates": "./remove-csv-duplicates.js"
+    "remove-csv-duplicates": "remove-csv-duplicates.js"
   },
   "files": [
     "remove-csv-duplicates.js",
