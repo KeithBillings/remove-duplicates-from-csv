@@ -37,7 +37,7 @@ test("keeps the first row for each value and preserves order", async () => {
 
   const result = await removeDuplicates({ input, output, column: "email" });
 
-  assert.deepEqual(result, { total: 5, kept: 3, removed: 2 });
+  assert.deepEqual(result, { total: 5, kept: 3, duplicatesRemoved: 2, emptyRemoved: 0 });
   assert.equal(
     read("out.csv"),
     `name,email,city
@@ -72,8 +72,43 @@ test("a header-only file produces a header-only output", async () => {
 
   const result = await removeDuplicates({ input, output, column: "a" });
 
-  assert.deepEqual(result, { total: 0, kept: 0, removed: 0 });
+  assert.deepEqual(result, { total: 0, kept: 0, duplicatesRemoved: 0, emptyRemoved: 0 });
   assert.equal(read("out.csv"), "a,b\n");
+});
+
+const WITH_EMPTY = `name,email
+Ada,ada@example.com
+NoEmail1,
+NoEmail2,"  "
+Ada Again,ada@example.com
+Short
+`;
+
+test("rows with an empty value are kept untouched by default", async () => {
+  const input = write("empty.csv", WITH_EMPTY);
+  const output = path.join(dir, "out.csv");
+
+  const result = await removeDuplicates({ input, output, column: "email" });
+
+  assert.deepEqual(result, { total: 5, kept: 4, duplicatesRemoved: 1, emptyRemoved: 0 });
+  assert.equal(read("out.csv"), 'name,email\nAda,ada@example.com\nNoEmail1,\nNoEmail2,  \nShort,\n');
+});
+
+test("removeEmpty drops rows with an empty value", async () => {
+  const input = write("empty.csv", WITH_EMPTY);
+  const output = path.join(dir, "out.csv");
+
+  const result = await removeDuplicates({ input, output, column: "email", removeEmpty: true });
+
+  assert.deepEqual(result, { total: 5, kept: 1, duplicatesRemoved: 1, emptyRemoved: 3 });
+  assert.equal(read("out.csv"), "name,email\nAda,ada@example.com\n");
+});
+
+test("CLI: --remove-empty flag", () => {
+  write("empty.csv", WITH_EMPTY);
+  const stdout = execFileSync(process.execPath, [CLI, "empty.csv", "out.csv", "-c", "email", "--remove-empty"], { cwd: dir, encoding: "utf8" });
+
+  assert.match(stdout, /Kept 1 of 5 rows \(1 duplicates removed, 3 empty removed\)/);
 });
 
 test("CLI: works fully non-interactively with arguments", () => {

@@ -12,9 +12,18 @@ A small command-line tool that removes duplicate rows from a CSV file based on o
 - **Excel-friendly**: handles the hidden "byte order mark" Excel adds to UTF-8 CSVs, and `.CSV` in capitals.
 - **Progress bar** for large files.
 
-## Requirements
+## Which version should I use?
 
-- Node.js 20 or newer
+There are two maintained versions with the same features and options:
+
+| Your Node.js version | Use                    | Run with                        | Install with                          |
+| -------------------- | ---------------------- | ------------------------------- | ------------------------------------- |
+| 20 or newer          | **2.x** (the default)  | `npx remove-csv-duplicates`     | `npm install remove-csv-duplicates`   |
+| 10 to 19             | **1.x**                | `npx remove-csv-duplicates@1`   | `npm install remove-csv-duplicates@1` |
+
+Not sure? Run `node --version`. If you run 2.x on an older Node, it tells you to switch to 1.x.
+
+The `@1` part asks npm for the newest 1.x release, so you still get bug fixes.
 
 ## Usage
 
@@ -36,7 +45,7 @@ Enter the output file name: contacts-clean
 Columns: name, email, city
 Enter the column to parse (remove duplicates): email
 ████████████████████████████████████████ 100%
-CSV file written without duplicates! Kept 3 of 5 rows (2 removed) → contacts-clean.csv
+CSV file written without duplicates! Kept 3 of 5 rows (2 duplicates removed) → contacts-clean.csv
 ```
 
 ### Options
@@ -44,6 +53,7 @@ CSV file written without duplicates! Kept 3 of 5 rows (2 removed) → contacts-c
 | Option                | Description                                        |
 | --------------------- | -------------------------------------------------- |
 | `-c, --column <name>` | Column to check for duplicates (case-sensitive)    |
+| `-e, --remove-empty`  | Also remove rows where that column is empty        |
 | `-h, --help`          | Show help                                          |
 | `-v, --version`       | Show the version number                            |
 
@@ -51,7 +61,7 @@ Notes:
 
 - File paths can be relative to the folder you run the command in (`data/file.csv`, `../file.csv`) or absolute.
 - `.csv` is added to the output name if you leave it off. An existing output file is overwritten.
-- Rows where the column is empty count as duplicates of each other, so only the first one is kept.
+- Rows where the column is empty (or only spaces) are never treated as duplicates and are kept as they are. Add `--remove-empty` to drop them instead.
 
 ### Installing into a project
 
@@ -72,10 +82,11 @@ Then use it from an npm script in your `package.json`:
 ```js
 const { removeDuplicates } = require("remove-csv-duplicates");
 
-const { total, kept, removed } = await removeDuplicates({
+const { total, kept, duplicatesRemoved, emptyRemoved } = await removeDuplicates({
   input: "contacts.csv",
   output: "contacts-clean.csv",
   column: "email",
+  removeEmpty: false, // optional
 });
 ```
 
